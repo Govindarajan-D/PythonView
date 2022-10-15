@@ -1,20 +1,25 @@
-import os
 
 from PySide6 import QtCore, QtWidgets
 from PySide6.QtCore import Qt
-from PySide6.QtSvg import QSvgRenderer
 from PySide6.QtGui import QAction, QIcon
 from PySide6.QtWidgets import QMainWindow, QMenuBar, QMenu, QFileDialog, QToolBar
+
 import sys
+import os
 import os.path as path
 
+from core.pandas_generator import PandasGenerator
 
-class PVApplication(QMainWindow):
+
+class PyViewApplication(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("PythonView")
         self.AppName = "PythonView Application"
         self.svg_resource_path = path.abspath(path.join(__file__, os.pardir, os.pardir, "icons"))
+        self.pandas_gen = PandasGenerator()
+        self.pandas_gen.generate_script("new_column_addition", "df1", "")
+        self.pandas_gen.table_script
         self._initialize_actions()
         self._initialize_menu_bar()
         self._initialize_toolbar()
@@ -61,7 +66,7 @@ class PVApplication(QMainWindow):
 if __name__ == "__main__":
     app = QtWidgets.QApplication([])
 
-    widget = PVApplication()
+    widget = PyViewApplication()
     widget.resize(800, 600)
     widget.show()
 
