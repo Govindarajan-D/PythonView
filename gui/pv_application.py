@@ -9,7 +9,7 @@ import os
 import os.path as path
 
 from core.pandas_generator import PandasGenerator
-
+import resources.resources
 
 class PyViewApplication(QMainWindow):
     def __init__(self, parent=None):
@@ -17,14 +17,14 @@ class PyViewApplication(QMainWindow):
         self.setWindowTitle("PythonView")
         self.AppName = "PythonView Application"
         self.svg_resource_path = path.abspath(path.join(__file__, os.pardir, os.pardir, "icons"))
-        self.pandas_gen = PandasGenerator()
-        self.pandas_gen.generate_script("new_column_addition", "df1", "")
-        self.pandas_gen.table_script
         self._initialize_actions()
         self._initialize_menu_bar()
         self._initialize_toolbar()
         self._connect_actions()
         self._initialize_status_bar()
+
+        self.pandas_gen = PandasGenerator()
+        self.pandas_gen.generate_script("new_column_addition", "df1", "5")
 
     def _initialize_menu_bar(self):
         main_menu_bar = QMenuBar(self)
@@ -40,7 +40,7 @@ class PyViewApplication(QMainWindow):
         self.setMenuBar(main_menu_bar)
 
     def _initialize_actions(self):
-        self.new_action = QAction(QIcon(self.svg_resource_path), "&Open", self)
+        self.new_action = QAction(QIcon(":/icons/open-file-icon.png"), "&Open", self)
         self.new_action.setShortcut("Ctrl+O")
         self.new_action.setToolTip("Open existing file")
 
@@ -52,6 +52,7 @@ class PyViewApplication(QMainWindow):
         self.main_toolbar.setFixedHeight(80)
         self.main_toolbar.setMovable(False)
         self.addToolBar(Qt.TopToolBarArea, self.main_toolbar)
+        self.main_toolbar.addAction(self.new_action)
 
     def _initialize_status_bar(self):
         self.status_bar = self.statusBar()

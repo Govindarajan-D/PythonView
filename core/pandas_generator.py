@@ -10,4 +10,4 @@ class PandasGenerator:
     def generate_script(self, operation_type, dataframe_name, operation_data):
         match operation_type:
             case "new_column_addition":
-                self.table_script += dataframe_name + "[" + operation_data.column_name + "] = " + operation_data.operation
+                self.table_script += dataframe_name + "[" + "test" + "] = " + operation_data
