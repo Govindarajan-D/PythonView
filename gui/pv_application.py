@@ -1,15 +1,15 @@
-
 from PySide6 import QtCore, QtWidgets
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QAction, QIcon
-from PySide6.QtWidgets import QMainWindow, QMenuBar, QMenu, QFileDialog, QToolBar
+from PySide6.QtGui import QAction, QIcon, QPixmap
+from PySide6.QtWidgets import QMainWindow, QMenuBar, QMenu, QFileDialog, QToolBar, QDockWidget, QLabel
 
 import sys
 import os
 import os.path as path
 
-from core.pandas_generator import PandasGenerator
+from core import PandasGenerator
 import resources.resources
+
 
 class PyViewApplication(QMainWindow):
     def __init__(self, parent=None):
@@ -40,7 +40,7 @@ class PyViewApplication(QMainWindow):
         self.setMenuBar(main_menu_bar)
 
     def _initialize_actions(self):
-        self.new_action = QAction(QIcon(":/icons/open-file-icon.png"), "&Open", self)
+        self.new_action = QAction(QIcon(QPixmap(":/icons/open-file-icon.png")), "&Open", self)
         self.new_action.setShortcut("Ctrl+O")
         self.new_action.setToolTip("Open existing file")
 
@@ -49,7 +49,7 @@ class PyViewApplication(QMainWindow):
 
     def _initialize_toolbar(self):
         self.main_toolbar = QToolBar()
-        self.main_toolbar.setFixedHeight(80)
+        self.main_toolbar.setFixedHeight(50)
         self.main_toolbar.setMovable(False)
         self.addToolBar(Qt.TopToolBarArea, self.main_toolbar)
         self.main_toolbar.addAction(self.new_action)
@@ -57,6 +57,11 @@ class PyViewApplication(QMainWindow):
     def _initialize_status_bar(self):
         self.status_bar = self.statusBar()
         self.status_bar.showMessage("Ready")
+
+    def _initialize_window(self):
+        self.dock_left_pane = QDockWidget("queries", self)
+        self.test_text = QLabel("test", self)
+        self.dock_left_pane.setWidget(self.test_text)
 
     @QtCore.Slot()
     def open_file(self):

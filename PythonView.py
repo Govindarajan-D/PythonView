@@ -1,5 +1,5 @@
 import sys
-from gui.pv_application import PyViewApplication
+from gui import PyViewApplication
 from PySide6 import QtWidgets
 
 
