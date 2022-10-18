@@ -11,3 +11,5 @@ class PandasGenerator:
         match operation_type:
             case "new_column_addition":
                 self.table_script += dataframe_name + "[" + "test" + "] = " + operation_data
+            case "select_columns":
+                self.table_script += dataframe_name + "[["+operation_data + "]]"

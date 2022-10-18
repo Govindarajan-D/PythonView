@@ -1,7 +1,7 @@
 from PySide6 import QtCore, QtWidgets
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QAction, QIcon, QPixmap
-from PySide6.QtWidgets import QMainWindow, QMenuBar, QMenu, QFileDialog, QToolBar, QDockWidget, QLabel
+from PySide6.QtWidgets import QMainWindow, QMenuBar, QMenu, QFileDialog, QToolBar, QDockWidget, QLabel, QTextEdit
 
 import sys
 import os
@@ -26,6 +26,7 @@ class PyViewApplication(QMainWindow):
         self.pandas_gen = PandasGenerator()
         self.pandas_gen.generate_script("new_column_addition", "df1", "5")
 
+        self._initialize_window()
     def _initialize_menu_bar(self):
         main_menu_bar = QMenuBar(self)
 
@@ -59,9 +60,16 @@ class PyViewApplication(QMainWindow):
         self.status_bar.showMessage("Ready")
 
     def _initialize_window(self):
-        self.dock_left_pane = QDockWidget("queries", self)
-        self.test_text = QLabel("test", self)
+        self.dock_left_pane = QDockWidget("Queries")
+        self.test_text = QLabel("Test", self)
+        self.dock_left_pane.setFloating(False)
+
         self.dock_left_pane.setWidget(self.test_text)
+        self.dock_left_pane.setFeatures(QDockWidget.NoDockWidgetFeatures)
+        self.addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea, self.dock_left_pane)
+
+        self.code_viewer = QTextEdit(self.pandas_gen.table_script, self)
+        self.setCentralWidget(self.code_viewer)
 
     @QtCore.Slot()
     def open_file(self):
