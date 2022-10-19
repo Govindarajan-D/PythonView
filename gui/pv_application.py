@@ -1,3 +1,4 @@
+
 from PySide6 import QtCore, QtWidgets
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QAction, QIcon, QPixmap
@@ -9,6 +10,7 @@ import os.path as path
 
 from core import PandasGenerator
 import resources.resources
+from .query_central_window import QueryCentralWindow
 
 
 class PyViewApplication(QMainWindow):
@@ -27,6 +29,7 @@ class PyViewApplication(QMainWindow):
         self.pandas_gen.generate_script("new_column_addition", "df1", "5")
 
         self._initialize_window()
+
     def _initialize_menu_bar(self):
         main_menu_bar = QMenuBar(self)
 
@@ -69,6 +72,8 @@ class PyViewApplication(QMainWindow):
         self.addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea, self.dock_left_pane)
 
         self.code_viewer = QTextEdit(self.pandas_gen.table_script, self)
+        self.central_widget = QueryCentralWindow(self)
+        self.central_widget.layout()
         self.setCentralWidget(self.code_viewer)
 
     @QtCore.Slot()

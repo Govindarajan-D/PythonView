@@ -1,1 +1,2 @@
 from .pv_application import PyViewApplication
+from .query_central_window import QueryCentralWindow
