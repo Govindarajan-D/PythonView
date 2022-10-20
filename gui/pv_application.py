@@ -2,7 +2,7 @@
 from PySide6 import QtCore, QtWidgets
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QAction, QIcon, QPixmap
-from PySide6.QtWidgets import QMainWindow, QMenuBar, QMenu, QFileDialog, QToolBar, QDockWidget, QLabel, QTextEdit
+from PySide6.QtWidgets import QMainWindow, QMenuBar, QMenu, QFileDialog, QToolBar, QDockWidget, QLabel, QTextEdit, QWidget, QVBoxLayout, QTableWidget
 
 import sys
 import os
@@ -71,10 +71,12 @@ class PyViewApplication(QMainWindow):
         self.dock_left_pane.setFeatures(QDockWidget.NoDockWidgetFeatures)
         self.addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea, self.dock_left_pane)
 
-        self.code_viewer = QTextEdit(self.pandas_gen.table_script, self)
-        self.central_widget = QueryCentralWindow(self)
-        self.central_widget.layout()
-        self.setCentralWidget(self.code_viewer)
+        #self.central_widget = QueryCentralWindow(data=self.pandas_gen, parent=self)
+        self.central_widget = QWidget(self)
+        self.layout = QVBoxLayout(self.central_widget)
+        self.layout.addWidget(QTextEdit(self.pandas_gen.table_script, self), 2)
+        self.layout.addWidget(QTableWidget(50, 15, self), 98)
+        self.setCentralWidget(self.central_widget)
 
     @QtCore.Slot()
     def open_file(self):
