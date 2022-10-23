@@ -1,8 +1,10 @@
 import pandas as pd
+from .data_structures import TextStack
 
 
 class PandasGenerator:
     data_frame_names = ["data_frame"]
+    transform_code = []
 
     def __init__(self):
         self.table_script = ""

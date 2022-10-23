@@ -11,6 +11,7 @@ import os.path as path
 from core import PandasGenerator
 import resources.resources
 from .central_window_widget import CentralWindowWidget
+from .navbars.transform_toolbar import TransformToolBar
 
 
 class PyViewApplication(QMainWindow):
@@ -52,9 +53,7 @@ class PyViewApplication(QMainWindow):
         self.new_action.triggered.connect(self.open_file)
 
     def _initialize_toolbar(self):
-        self.main_toolbar = QToolBar()
-        self.main_toolbar.setFixedHeight(50)
-        self.main_toolbar.setMovable(False)
+        self.main_toolbar = TransformToolBar(self)
         self.addToolBar(Qt.TopToolBarArea, self.main_toolbar)
         self.main_toolbar.addAction(self.new_action)
 
