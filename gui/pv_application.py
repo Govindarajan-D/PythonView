@@ -2,7 +2,7 @@
 from PySide6 import QtCore, QtWidgets
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QAction, QIcon, QPixmap
-from PySide6.QtWidgets import QMainWindow, QMenuBar, QMenu, QFileDialog, QToolBar, QDockWidget, QLabel, QTextEdit, QWidget, QVBoxLayout, QTableWidget
+from PySide6.QtWidgets import QMainWindow, QMenuBar, QMenu, QFileDialog, QToolBar, QDockWidget, QLabel
 
 import sys
 import os
@@ -10,7 +10,7 @@ import os.path as path
 
 from core import PandasGenerator
 import resources.resources
-from .query_central_window import QueryCentralWindow
+from .central_window_widget import CentralWindowWidget
 
 
 class PyViewApplication(QMainWindow):
@@ -64,14 +64,14 @@ class PyViewApplication(QMainWindow):
 
     def _initialize_window(self):
         self.dock_left_pane = QDockWidget("Queries")
-        self.test_text = QLabel("Test", self)
         self.dock_left_pane.setFloating(False)
 
+        self.test_text = QLabel("Test", self)
         self.dock_left_pane.setWidget(self.test_text)
         self.dock_left_pane.setFeatures(QDockWidget.NoDockWidgetFeatures)
         self.addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea, self.dock_left_pane)
 
-        self.central_widget = QueryCentralWindow(data=self.pandas_gen, parent=self)
+        self.central_widget = CentralWindowWidget(data=self.pandas_gen, parent=self)
         self.setCentralWidget(self.central_widget)
 
     @QtCore.Slot()
