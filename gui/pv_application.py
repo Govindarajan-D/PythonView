@@ -10,13 +10,14 @@ import os.path as path
 
 from core import PandasGenerator
 import resources.resources
+from .gui_functions.gui_slots import GUISlots
 from .central_window_widget import CentralWindowWidget
 from .navbars.transform_toolbar import TransformToolBar
 from .navbars.transform_menubar import TransformMenuBar
-from .gui_functions import GUIActions
+from .gui_functions.gui_actions import GUIActions
 
 
-class PyViewApplication(QMainWindow):
+class PyViewApplication(QMainWindow, GUISlots):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("PythonView")
@@ -57,9 +58,6 @@ class PyViewApplication(QMainWindow):
         self.central_widget = CentralWindowWidget(data=self.pandas_gen, parent=self)
         self.setCentralWidget(self.central_widget)
 
-    def open_file(self):
-        open_selected_file_name = QFileDialog.getOpenFileNames(self, "Open PyView file", os.path.expanduser("~"),
-                                                               'PyView (*.pyv)')
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication([])
