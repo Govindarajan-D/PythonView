@@ -12,6 +12,8 @@ from core import PandasGenerator
 import resources.resources
 from .central_window_widget import CentralWindowWidget
 from .navbars.transform_toolbar import TransformToolBar
+from .navbars.transform_menubar import TransformMenuBar
+from .gui_functions import GUIActions
 
 
 class PyViewApplication(QMainWindow):
@@ -19,11 +21,10 @@ class PyViewApplication(QMainWindow):
         super().__init__(parent)
         self.setWindowTitle("PythonView")
         self.AppName = "PythonView Application"
-        self.svg_resource_path = path.abspath(path.join(__file__, os.pardir, os.pardir, "icons"))
-        self._initialize_actions()
+
+        self.actions_obj = GUIActions(self).return_actions()
         self._initialize_menu_bar()
         self._initialize_toolbar()
-        self._connect_actions()
         self._initialize_status_bar()
 
         self.pandas_gen = PandasGenerator()
@@ -32,30 +33,13 @@ class PyViewApplication(QMainWindow):
         self._initialize_window()
 
     def _initialize_menu_bar(self):
-        main_menu_bar = QMenuBar(self)
-
-        file_menu = QMenu("&File", self)
-        file_menu.addAction(self.new_action)
-
-        help_menu = QMenu("&Help", self)
-
-        main_menu_bar.addMenu(file_menu)
-        main_menu_bar.addMenu(help_menu)
-
+        main_menu_bar = TransformMenuBar(self, self.actions_obj)
         self.setMenuBar(main_menu_bar)
-
-    def _initialize_actions(self):
-        self.new_action = QAction(QIcon(QPixmap(":/icons/open-file-icon.png")), "&Open", self)
-        self.new_action.setShortcut("Ctrl+O")
-        self.new_action.setToolTip("Open existing file")
-
-    def _connect_actions(self):
-        self.new_action.triggered.connect(self.open_file)
 
     def _initialize_toolbar(self):
         self.main_toolbar = TransformToolBar(self)
         self.addToolBar(Qt.TopToolBarArea, self.main_toolbar)
-        self.main_toolbar.addAction(self.new_action)
+#        self.main_toolbar.addAction(self.new_action)
 
     def _initialize_status_bar(self):
         self.status_bar = self.statusBar()
@@ -73,11 +57,9 @@ class PyViewApplication(QMainWindow):
         self.central_widget = CentralWindowWidget(data=self.pandas_gen, parent=self)
         self.setCentralWidget(self.central_widget)
 
-    @QtCore.Slot()
     def open_file(self):
         open_selected_file_name = QFileDialog.getOpenFileNames(self, "Open PyView file", os.path.expanduser("~"),
                                                                'PyView (*.pyv)')
-
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication([])

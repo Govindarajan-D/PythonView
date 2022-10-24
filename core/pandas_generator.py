@@ -1,4 +1,3 @@
-import pandas as pd
 from .data_structures import TextStack
 
 
@@ -14,4 +13,4 @@ class PandasGenerator:
             case "new_column_addition":
                 self.table_script += dataframe_name + "[" + "test" + "] = " + operation_data
             case "select_columns":
-                self.table_script += dataframe_name + "[["+operation_data + "]]"
+                self.table_script += dataframe_name + "[[" + operation_data + "]]"

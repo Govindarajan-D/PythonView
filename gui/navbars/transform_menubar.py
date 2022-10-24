@@ -1,16 +1,14 @@
 from PySide6.QtWidgets import QMenuBar, QMenu
+from ..gui_functions import gui_actions
 
 
-class TransformMenu(QMenu):
-    def __init__(self, parent=None):
+class TransformMenuBar(QMenuBar):
+    def __init__(self, parent, actions_list):
         super().__init__(parent)
         file_menu = QMenu("&File", self)
-        file_menu.addAction(self.new_action)
+        file_menu.addAction(actions_list['new_action'])
 
         help_menu = QMenu("&Help", self)
 
         self.addMenu(file_menu)
         self.addMenu(help_menu)
-
-    def new_action(self):
-        pass
