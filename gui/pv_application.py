@@ -10,16 +10,17 @@ import os.path as path
 
 from core import PandasGenerator
 import resources.resources
-from .gui_functions.gui_slots import GUISlots
-from .central_window_widget import CentralWindowWidget
-from .navbars.transform_toolbar import TransformToolBar
-from .navbars.transform_menubar import TransformMenuBar
-from .gui_functions.gui_actions import GUIActions
+from gui.gui_functions.gui_slots import GUISlots
+from gui.central_window_widget import CentralWindowWidget
+from gui.navbars.transform_toolbar import TransformToolBar
+from gui.navbars.transform_menubar import TransformMenuBar
+from gui.gui_functions.gui_actions import GUIActions
 
 
 class PyViewApplication(QMainWindow, GUISlots):
     def __init__(self, parent=None):
-        super().__init__(parent)
+        QMainWindow.__init__(self)
+        GUISlots.__init__(self)
         self.setWindowTitle("PythonView")
         self.AppName = "PythonView Application"
 
@@ -38,9 +39,8 @@ class PyViewApplication(QMainWindow, GUISlots):
         self.setMenuBar(main_menu_bar)
 
     def _initialize_toolbar(self):
-        self.main_toolbar = TransformToolBar(self)
+        self.main_toolbar = TransformToolBar(self, self.actions_obj)
         self.addToolBar(Qt.TopToolBarArea, self.main_toolbar)
-#        self.main_toolbar.addAction(self.new_action)
 
     def _initialize_status_bar(self):
         self.status_bar = self.statusBar()

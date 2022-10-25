@@ -1,4 +1,4 @@
-from .data_structures import TextStack
+from core.data_structures import TextStack
 
 
 class PandasGenerator:

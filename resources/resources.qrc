@@ -2,5 +2,6 @@
 <RCC version="1.0">
   <qresource prefix="icons">
   <file alias="open-file-icon.png">icons/open-file-icon.png</file>
+  <file alias="read-csv-icon.png">icons/read-csv-icon.png</file>
   </qresource>
 </RCC>
