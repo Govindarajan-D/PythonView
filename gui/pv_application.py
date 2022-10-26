@@ -58,6 +58,10 @@ class PyViewApplication(QMainWindow, GUISlots):
         self.central_widget = CentralWindowWidget(data=self.pandas_gen, parent=self)
         self.setCentralWidget(self.central_widget)
 
+    def update_table(self):
+        data = self.dataframe_list[0]
+        self.central_widget.data_table.setModel(data)
+
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication([])

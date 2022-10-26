@@ -2,7 +2,7 @@ from PySide6 import QtCore
 from PySide6.QtWidgets import QFileDialog
 import os
 
-from core.pandas_dataframes import PandasDataFrame
+from core.pandas_dataframes import DataFrame
 
 
 class GUISlots:
@@ -19,6 +19,10 @@ class GUISlots:
     @QtCore.Slot()
     def read_csv(self):
         self.open_csv_file_name, _ = QFileDialog.getOpenFileName(self, "Open CSV file", os.path.expanduser("~"),
-                                                              'CSV file (*.csv)')
-        pandas_df = PandasDataFrame(self.open_csv_file_name, 'csv')
+                                                                 'CSV file (*.csv)')
+        pandas_df = DataFrame(self.open_csv_file_name, 'csv')
         self.dataframe_list.append(pandas_df)
+        self.update_table()
+
+    def update_table(self):
+        pass
