@@ -2,11 +2,11 @@ from PySide6.QtWidgets import QWidget, QTextEdit, QTableWidget, QVBoxLayout,  QA
 
 
 class CentralWindowWidget(QWidget):
-    def __init__(self, data, parent=None):
+    def __init__(self, data="", parent=None):
         super().__init__(parent)
         layout = QVBoxLayout(self)
 
-        self.script_text = QTextEdit(data.table_script, self)
+        self.script_text = QTextEdit(data, self)
         layout.addWidget(self.script_text, 2)
 
         self.data_table = QTableWidget(50, 15, self)

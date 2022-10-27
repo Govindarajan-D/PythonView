@@ -1,13 +1,9 @@
 
-from PySide6 import QtCore, QtWidgets
+from PySide6 import QtWidgets
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QAction, QIcon, QPixmap
-from PySide6.QtWidgets import QMainWindow, QMenuBar, QMenu, QFileDialog, QToolBar, QDockWidget, QLabel
+from PySide6.QtWidgets import QMainWindow, QDockWidget, QLabel
 
 import sys
-import os
-import os.path as path
-
 from core import PandasGenerator
 import resources.resources
 from gui.gui_functions.gui_slots import GUISlots
@@ -28,10 +24,6 @@ class PyViewApplication(QMainWindow, GUISlots):
         self._initialize_menu_bar()
         self._initialize_toolbar()
         self._initialize_status_bar()
-
-        self.pandas_gen = PandasGenerator()
-        self.pandas_gen.generate_script("new_column_addition", "df1", "5")
-
         self._initialize_window()
 
     def _initialize_menu_bar(self):
@@ -55,7 +47,7 @@ class PyViewApplication(QMainWindow, GUISlots):
         self.dock_left_pane.setFeatures(QDockWidget.NoDockWidgetFeatures)
         self.addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea, self.dock_left_pane)
 
-        self.central_widget = CentralWindowWidget(data=self.pandas_gen, parent=self)
+        self.central_widget = CentralWindowWidget(parent=self)
         self.setCentralWidget(self.central_widget)
 
     def update_table(self):
