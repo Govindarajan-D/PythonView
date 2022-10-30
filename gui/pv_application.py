@@ -11,6 +11,7 @@ from gui.central_window_widget import CentralWindowWidget
 from gui.navbars.transform_toolbar import TransformToolBar
 from gui.navbars.transform_menubar import TransformMenuBar
 from gui.gui_functions.gui_actions import GUIActions
+from model.table_model import TableModel
 
 
 class PyViewApplication(QMainWindow, GUISlots):
@@ -52,7 +53,8 @@ class PyViewApplication(QMainWindow, GUISlots):
 
     def update_table(self):
         data = self.dataframe_list[0]
-        self.central_widget.data_table.setModel(data)
+        table_model = TableModel(data)
+        self.central_widget.data_table.setModel(table_model)
 
 
 if __name__ == "__main__":
