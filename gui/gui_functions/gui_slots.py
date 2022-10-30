@@ -20,9 +20,10 @@ class GUISlots:
     def read_csv(self):
         self.open_csv_file_name, _ = QFileDialog.getOpenFileName(self, "Open CSV file", os.path.expanduser("~"),
                                                                  'CSV file (*.csv)')
-        pandas_df = DataFrame(self.open_csv_file_name, 'csv')
-        self.dataframe_list.append(pandas_df)
-        self.update_table()
+        if self.open_csv_file_name is not None and self.open_csv_file_name:
+            pandas_df = DataFrame(self.open_csv_file_name, 'csv')
+            self.dataframe_list.append(pandas_df)
+            self.update_table()
 
     def update_table(self):
         pass
