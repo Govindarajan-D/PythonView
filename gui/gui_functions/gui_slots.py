@@ -1,5 +1,5 @@
 from PySide6 import QtCore
-from PySide6.QtWidgets import QFileDialog
+from PySide6.QtWidgets import QFileDialog, QMessageBox
 import os
 
 from core.pandas_dataframes import DataFrame
@@ -25,5 +25,11 @@ class GUISlots:
             self.dataframe_list.append(pandas_df)
             self.update_table()
 
+    @QtCore.Slot()
+    def about_dialog(self):
+        dialog = QMessageBox(self)
+        dialog.setWindowTitle("PyView About")
+        dialog.setText("Application to analyze and visualize data using Python Libraries")
+        dialog.exec()
     def update_table(self):
         pass

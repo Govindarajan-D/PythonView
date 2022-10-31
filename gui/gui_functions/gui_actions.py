@@ -12,6 +12,7 @@ class GUIActions:
         self.parent = parent
         self.new_action = QAction(QIcon(QPixmap(":/icons/open-file-icon.png")), "&Open PyView File", self.parent)
         self.read_csv = QAction(QIcon(QPixmap(":/icons/read-csv-icon.png")), "&Read CSV", self.parent)
+        self.about_dlg = QAction("&About PyView", self.parent)
         self._initialize_actions()
 
     def _initialize_actions(self):
@@ -23,6 +24,9 @@ class GUIActions:
         self.read_csv.setToolTip("Read CSV file")
         self.read_csv.triggered.connect(self.parent.read_csv)
 
+        self.about_dlg.setToolTip("About PyView")
+        self.about_dlg.triggered.connect(self.parent.about_dialog)
+
     def return_actions(self):
-        self.actions_list = {"new_action": self.new_action, "read_csv": self.read_csv}
+        self.actions_list = {"new_action": self.new_action, "read_csv": self.read_csv, "about_dlg": self.about_dlg}
         return self.actions_list

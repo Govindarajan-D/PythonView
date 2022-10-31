@@ -9,6 +9,6 @@ class TransformMenuBar(QMenuBar):
         file_menu.addAction(actions_list['new_action'])
 
         help_menu = QMenu("&Help", self)
-
+        help_menu.addAction(actions_list['about_dlg'])
         self.addMenu(file_menu)
         self.addMenu(help_menu)
