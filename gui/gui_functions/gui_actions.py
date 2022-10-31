@@ -1,6 +1,7 @@
 from PySide6 import QtCore
 from PySide6.QtWidgets import QFileDialog
 from PySide6.QtGui import QAction, QIcon, QPixmap
+import logging
 
 import os
 import resources.resources
@@ -8,6 +9,8 @@ import resources.resources
 
 class GUIActions:
     def __init__(self, parent=None):
+        self.log = logging.getLogger(__name__)
+
         self.actions_list = None
         self.parent = parent
         self.new_action = QAction(QIcon(QPixmap(":/icons/open-file-icon.png")), "&Open PyView File", self.parent)
@@ -26,6 +29,8 @@ class GUIActions:
 
         self.about_dlg.setToolTip("About PyView")
         self.about_dlg.triggered.connect(self.parent.about_dialog)
+
+        self.log.info("Initialized GUI actions")
 
     def return_actions(self):
         self.actions_list = {"new_action": self.new_action, "read_csv": self.read_csv, "about_dlg": self.about_dlg}
