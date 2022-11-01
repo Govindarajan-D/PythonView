@@ -8,7 +8,7 @@ class TableModel(QAbstractTableModel):
 
     def data(self, index, role):
         if role == Qt.DisplayRole:
-            value =  self._data.iloc[index.row(), index.column()]
+            value = self._data.iloc[index.row(), index.column()]
             if isinstance(value, int):
                 return int(value)
             else:

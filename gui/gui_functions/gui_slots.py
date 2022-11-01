@@ -31,5 +31,6 @@ class GUISlots:
         dialog.setWindowTitle("PyView About")
         dialog.setText("Application to analyze and visualize data using Python Libraries")
         dialog.exec()
+
     def update_table(self):
         pass

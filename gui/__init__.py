@@ -1,2 +1,2 @@
 from .pv_application import PyViewApplication
-from .central_window_widget import CentralWindowWidget
+from gui.custom_widgets.central_window_widget import CentralWindowWidget
