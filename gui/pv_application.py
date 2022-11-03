@@ -9,7 +9,7 @@ from gui.gui_functions.gui_slots import GUISlots
 from gui.custom_widgets.central_window_widget import CentralWindowWidget
 from gui.navbars.transform_toolbar import TransformToolBar
 from gui.navbars.transform_menubar import TransformMenuBar
-from gui.navbars.sidebar_queries import SidebarQueries
+from gui.custom_widgets.sidebar_queries import SidebarQueries
 from gui.gui_functions.gui_actions import GUIActions
 from model.table_model import TableModel
 

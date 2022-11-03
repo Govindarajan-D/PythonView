@@ -1,5 +1,4 @@
 from PySide6.QtWidgets import QMenuBar, QMenu
-from gui.gui_functions import gui_actions
 
 
 class TransformMenuBar(QMenuBar):

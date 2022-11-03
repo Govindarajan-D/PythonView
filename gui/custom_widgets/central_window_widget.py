@@ -1,4 +1,5 @@
-from PySide6.QtWidgets import QWidget, QTextEdit, QTableView, QVBoxLayout,  QAbstractItemView
+from PySide6.QtWidgets import QWidget, QTextEdit, QVBoxLayout,  QAbstractItemView
+from gui.custom_widgets.query_table import TableWidget
 
 
 class CentralWindowWidget(QWidget):
@@ -9,7 +10,7 @@ class CentralWindowWidget(QWidget):
         self.script_text = QTextEdit(data, self)
         layout.addWidget(self.script_text, 2)
 
-        self.data_table = QTableView(self)
+        self.data_table = TableWidget()
         self.data_table.setGeometry(0, 0, 50, 15)
         self.data_table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         layout.addWidget(self.data_table, 98)
