@@ -26,6 +26,10 @@ class GUISlots:
             self.update_table()
 
     @QtCore.Slot()
+    def exit_app(self):
+        pass
+
+    @QtCore.Slot()
     def about_dialog(self):
         dialog = QMessageBox(self)
         dialog.setWindowTitle("PyView About")

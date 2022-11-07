@@ -3,5 +3,6 @@
   <qresource prefix="icons">
   <file alias="open-file-icon.png">icons/open-file-icon.png</file>
   <file alias="read-csv-icon.png">icons/read-csv-icon.png</file>
+  <file alias="exit-app-icon.png">icons/exit-app-icon.png</file>
   </qresource>
 </RCC>
