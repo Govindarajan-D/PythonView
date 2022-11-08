@@ -8,6 +8,9 @@ class TextStack:
     def remove_step(self):
         self.texts.pop()
 
+    def append(self, append_text):
+        self.add_step(append_text)
+
     def __add__(self, new_code):
         self.add_step(new_code)
 
