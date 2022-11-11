@@ -6,7 +6,16 @@ class TextStack:
         self.texts.append(new_code)
 
     def remove_step(self):
-        self.texts.pop()
+        if len(self.texts) > 0:
+            return self.texts.pop(len(self.texts)-1)
+        else:
+            return None
+
+    def peek(self):
+        if len(self.texts) > 0:
+            return self.texts[len(self.texts) - 1]
+        else:
+            return None
 
     def append(self, append_text):
         self.add_step(append_text)
