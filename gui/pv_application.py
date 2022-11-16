@@ -11,6 +11,7 @@ from gui.navbars.transform_toolbar import TransformToolBar
 from gui.navbars.transform_menubar import TransformMenuBar
 from gui.custom_widgets.sidebar_queries import SidebarQueries
 from gui.gui_functions.gui_actions import GUIActions
+from model.queries_list import QueriesList
 from model.table_model import TableModel
 
 
@@ -48,7 +49,10 @@ class PyViewApplication(QMainWindow, GUISlots):
         self.log.info("Initialized StatusBar")
 
     def _initialize_window(self):
-        self.dock_left_pane = SidebarQueries("Queries")
+        # TODO: Connect the new dataframe init signal with the below slot to initialize queries list array
+        self.queries_list_model = QueriesList(["Test"])
+        self.dock_left_pane = SidebarQueries("Queries", self.queries_list_model)
+
         self.dock_left_pane.setFeatures(QDockWidget.NoDockWidgetFeatures)
         self.addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea, self.dock_left_pane)
 
