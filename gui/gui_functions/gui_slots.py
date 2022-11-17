@@ -10,6 +10,7 @@ class GUISlots:
         self.dataframe_list = []
         self.open_csv_file_name = None
         self.open_selected_file_name = None
+        self.queries_list_model= None
 
     @QtCore.Slot()
     def open_file(self):

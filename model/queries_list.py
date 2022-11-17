@@ -13,3 +13,9 @@ class QueriesList(QAbstractListModel):
 
     def rowCount(self, index):
         return len(self.queries_list)
+
+    def insertRow(self, text, row: int = 0) -> bool:
+        if row == 0:
+            self.queries_list.append(text)
+        else:
+            self.queries_list[row] = text
