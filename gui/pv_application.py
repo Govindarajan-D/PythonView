@@ -25,13 +25,14 @@ class PyViewApplication(QMainWindow, GUISlots):
         self.setWindowTitle("PythonView")
         self.AppName = "PythonView Application"
 
+        self.dataframe_list = []
         self.actions_obj = GUIActions(self).return_actions()
         self._initialize_menu_bar()
         self._initialize_toolbar()
         self._initialize_status_bar()
         self._initialize_window()
 
-        self.controller = TransformController(self)
+        self.controller = TransformController(self, self.actions_obj, self.dataframe_list)
 
     def _initialize_menu_bar(self):
         main_menu_bar = TransformMenuBar(self, self.actions_obj)

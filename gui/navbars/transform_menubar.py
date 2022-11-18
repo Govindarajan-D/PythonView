@@ -5,7 +5,7 @@ class TransformMenuBar(QMenuBar):
     def __init__(self, parent, actions_list):
         super().__init__(parent)
         file_menu = QMenu("&File", self)
-        file_menu.addAction(actions_list['new_action'])
+        file_menu.addAction(actions_list['open_action'])
         file_menu.addAction(actions_list['exit_app'])
 
         help_menu = QMenu("&Help", self)
