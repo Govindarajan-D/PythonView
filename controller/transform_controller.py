@@ -30,8 +30,12 @@ class TransformController:
                                                                  'CSV file (*.csv)')
         if self.open_csv_file_name is not None and self.open_csv_file_name:
             pandas_df = DataFrame(self.open_csv_file_name, 'csv')
+            self.set_queries_controller(self.open_csv_file_name)
             self.dataframe_list.append(pandas_df)
             self.object.update_table()
+
+    def read_sql(self):
+        pass
 
 def set_side_bar_list():
     pass
