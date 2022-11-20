@@ -1,6 +1,7 @@
 from PySide6 import QtCore
 from PySide6.QtWidgets import QFileDialog, QMessageBox
 from core import DataFrame
+from gui.custom_widgets.sql_connection import SQLConnection
 import os
 
 
@@ -14,6 +15,7 @@ class TransformController:
 
         self.actions_obj["read_csv"].triggered.connect(self.read_csv)
         self.actions_obj["open_action"].triggered.connect(self.open_file)
+        self.actions_obj["read_sql"].triggered.connect(self.open_sql_connection)
 
     @QtCore.Slot()
     def set_queries_controller(self, text):
@@ -34,8 +36,17 @@ class TransformController:
             self.dataframe_list.append(pandas_df)
             self.object.update_table()
 
-    def read_sql(self):
-        pass
+    @QtCore.Slot()
+    def open_sql_connection(self):
+        sql_connection = SQLConnection(self.object)
+        sql_connection.show()
+        sql_connection.ok_button.clicked.connect(lambda: self.read_sql(sql_connection))
+
+    @QtCore.Slot()
+    def read_sql(self, sql_conn):
+        sql_conn.close()
+        selected_sql_server = sql_conn.combobox_db_connectors.currentText()
+        print(selected_sql_server)
 
 def set_side_bar_list():
     pass

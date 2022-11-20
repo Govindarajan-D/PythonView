@@ -7,3 +7,4 @@ class TransformToolBar(QToolBar):
         self.setFixedHeight(50)
         self.setMovable(False)
         self.addAction(actions_list['read_csv'])
+        self.addAction(actions_list['read_sql'])
