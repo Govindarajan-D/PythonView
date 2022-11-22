@@ -23,7 +23,8 @@ class TransformController:
 
     @QtCore.Slot()
     def open_file(self):
-        self.open_selected_file_name = QFileDialog.getOpenFileNames(self.object, "Open PyView file", os.path.expanduser("~"),
+        self.open_selected_file_name = QFileDialog.getOpenFileNames(self.object, "Open PyView file",
+                                                                    os.path.expanduser("~"),
                                                                     'PyView (*.pyv)')
 
     @QtCore.Slot()
@@ -31,8 +32,10 @@ class TransformController:
         self.open_csv_file_name, _ = QFileDialog.getOpenFileName(self.object, "Open CSV file", os.path.expanduser("~"),
                                                                  'CSV file (*.csv)')
         if self.open_csv_file_name is not None and self.open_csv_file_name:
-            pandas_df = DataFrame(self.open_csv_file_name, 'csv')
+            source_metadata = {'csv_file_name': self.open_csv_file_name}
+            pandas_df = DataFrame(source_metadata, 'csv')
             self.set_queries_controller(self.open_csv_file_name)
+            self.object.dock_left_pane.update()
             self.dataframe_list.append(pandas_df)
             self.object.update_table()
 
@@ -43,19 +46,30 @@ class TransformController:
         sql_connection.ok_button.clicked.connect(lambda: self.read_sql(sql_connection))
 
     @QtCore.Slot()
-    def read_sql(self, sql_conn):
-        sql_conn.close()
-        selected_sql_server = sql_conn.combobox_db_connectors.currentText()
-        print(selected_sql_server)
+    def read_sql(self, sql_conn_obj):
+        sql_conn_obj.close()
+        selected_sql_server = sql_conn_obj.combobox_db_connectors.currentText()
+        server_url = sql_conn_obj.line_edit_server_url.text()
+        database_name = sql_conn_obj.line_edit_db_name.text()
+        table_name = sql_conn_obj.line_edit_table_name.text()
+
+        source_metadata = {'server_type': selected_sql_server, 'server_url': server_url, 'database': database_name,
+                           'table_name': table_name}
+        pandas_df = DataFrame(source_metadata, 'sql')
+        self.dataframe_list.append(pandas_df)
+
 
 def set_side_bar_list():
     pass
 
+
 def set_dataframe_table():
     pass
 
+
 def call_operation():
     pass
+
 
 def set_steps():
     pass

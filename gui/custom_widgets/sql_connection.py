@@ -9,7 +9,7 @@ class SQLConnection(QDialog):
         self.setWindowTitle("Connect SQL Database")
 
         dialog_layout = QVBoxLayout()
-        sql_db_connectors = config['CONNECTORS']['SupportSQLDB'].split()
+        sql_db_connectors = config['CONNECTORS']['SupportSQLDB'].split(',')
         self.combobox_db_connectors = QComboBox()
         self.combobox_db_connectors.addItems(sql_db_connectors)
 
@@ -18,6 +18,9 @@ class SQLConnection(QDialog):
 
         self.line_edit_db_name = QLineEdit()
         self.line_edit_db_name.setPlaceholderText("Database name")
+
+        self.line_edit_table_name = QLineEdit()
+        self.line_edit_table_name.setPlaceholderText("Table name")
 
         buttons_layout = QHBoxLayout()
         self.ok_button = QPushButton("Ok")
@@ -29,6 +32,7 @@ class SQLConnection(QDialog):
         dialog_layout.addWidget(self.combobox_db_connectors)
         dialog_layout.addWidget(self.line_edit_server_url)
         dialog_layout.addWidget(self.line_edit_db_name)
+        dialog_layout.addWidget(self.line_edit_table_name)
         dialog_layout.addLayout(buttons_layout)
 
         self.setLayout(dialog_layout)
