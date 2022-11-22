@@ -3,11 +3,13 @@ from gui.custom_widgets import config
 
 
 class SQLConnection(QDialog):
+    """
+    SQLConnection creates a dialog box for getting the input for connecting with the various types of SQL servers
+    """
     def __init__(self, parent=None):
         super().__init__(parent)
 
         self.setWindowTitle("Connect SQL Database")
-
         dialog_layout = QVBoxLayout()
         sql_db_connectors = config['CONNECTORS']['SupportSQLDB'].split(',')
         self.combobox_db_connectors = QComboBox()
@@ -15,10 +17,8 @@ class SQLConnection(QDialog):
 
         self.line_edit_server_url = QLineEdit()
         self.line_edit_server_url.setPlaceholderText("Database Server name")
-
         self.line_edit_db_name = QLineEdit()
         self.line_edit_db_name.setPlaceholderText("Database name")
-
         self.line_edit_table_name = QLineEdit()
         self.line_edit_table_name.setPlaceholderText("Table name")
 

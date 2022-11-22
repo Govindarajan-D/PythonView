@@ -3,13 +3,26 @@ from collections import Counter
 
 
 class PandasGenerator:
+    """"
+    PandasGenerator generates code to display in the steps screen. Each step in the UI
+    is recorded.
+    """
     def __init__(self, dataframe_name):
+        """"
+        Initializes the text stack for recording steps and the step df names
+        :param dataframe_name: Get the dataframe name which be used as the final step dataframe name
+        """
         self.transform_code = TextStack()
         self.final_dataframe_name = dataframe_name
         self.step_df_names = TextStack()
         self.operations_list = []
 
     def generate_script(self, operation_type, operation_data):
+        """
+        Generates script for each step done in the UI and adds it to the existing list of steps
+        :param operation_type: Operation done in the UI that needs to be converted as step
+        :param operation_data: Data that will be used to generate the script
+        """
         # Maintain a list of dataframe names in the transform code window
         current_df_name = self.step_df_names.peek()
         count_operations = Counter(self.operations_list)

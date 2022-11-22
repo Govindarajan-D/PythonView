@@ -25,6 +25,8 @@ class PyViewApplication(QMainWindow, GUISlots):
         self.setWindowTitle("PythonView")
         self.AppName = "PythonView Application"
 
+        # Get the actions specified in the GUI Actions and use them to populate the Menu and Tool Bar
+        # Initialize the functions to build the UI ready for use
         self.dataframe_list = []
         self.actions_obj = GUIActions(self).return_actions()
         self._initialize_menu_bar()
@@ -32,6 +34,7 @@ class PyViewApplication(QMainWindow, GUISlots):
         self._initialize_status_bar()
         self._initialize_window()
 
+        # Create controller object that will be used for handling all the view <-> Model/Core interactions
         self.controller = TransformController(self, self.actions_obj, self.dataframe_list)
 
     def _initialize_menu_bar(self):

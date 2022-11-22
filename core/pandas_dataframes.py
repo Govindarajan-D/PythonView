@@ -5,7 +5,17 @@ import pyodbc
 
 
 class DataFrame:
+    """
+    Dataframe object initializes the pd dataframe based on the source type and build the corresponding
+    generator object for displaying the steps being done in the UI.
+    """
     def __init__(self, source_metadata, init_type):
+        """
+        Initializes the dataframe object by reading data from the source and populating the generator
+        object with the initial steps
+        :param source_metadata: Any metadata that will be passed for creating the dataframe
+        :param init_type: Type of initialization of how Pandas dataframe will read the data from
+        """
         match init_type:
             case 'csv':
                 file_path = source_metadata['csv_file_name']
