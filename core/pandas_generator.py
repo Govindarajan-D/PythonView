@@ -13,6 +13,7 @@ class PandasGenerator:
         # Maintain a list of dataframe names in the transform code window
         current_df_name = self.step_df_names.peek()
         count_operations = Counter(self.operations_list)
+        table_script = None
 
         # If the list is empty, then add the filename as the last step in the code
         if current_df_name is None:
@@ -28,12 +29,15 @@ class PandasGenerator:
         # Match the operation type and generate the corresponding operation pandas code
         match operation_type:
             case "new_column_addition":
-                table_script = operation_type + "[" + operation_data['new_column_name'] + "] = " + operation_data[
-                    'operation']
+                table_script = operation_type + "[" + operation_data['new_column_name'] + "] = " \
+                               + operation_data['operation']
             case "select_columns":
                 table_script = step_df_name + " = " + current_df_name + "[[" + operation_data['columns'] + "]]"
             case "read_csv":
                 table_script = step_df_name + " = " + "pd.read_csv(" + operation_data['file_path'] + ")"
+            case "read_sql":
+                table_script = step_df_name + " = " + "pd.read_sql('SELECT * FROM " + operation_data['sql_table'] +\
+                               ", connection) "
 
         # Add the operations to the list to maintain the steps that had been done
         self.operations_list.append(operation_type)

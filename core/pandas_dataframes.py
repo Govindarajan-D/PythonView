@@ -24,6 +24,6 @@ class DataFrame:
                                                          + ';Trusted_Connection=yes')
                 self.pandas_df = pd.read_sql('SELECT * FROM ' + source_metadata['table_name'], connection_info)
                 dataframe_name = source_metadata['table_name']
-#                self.gen_object = PandasGenerator(dataframe_name)
-#                operation_data = {'sql_table': source_metadata['table_name']}
-#                self.gen_object.generate_script("read_sql", operation_data)
+                self.gen_object = PandasGenerator(dataframe_name)
+                operation_data = {'sql_table': source_metadata['table_name']}
+                self.gen_object.generate_script("read_sql", operation_data)
