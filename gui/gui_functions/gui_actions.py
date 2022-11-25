@@ -39,5 +39,6 @@ class GUIActions:
         self.log.info("Initialized GUI actions")
 
     def return_actions(self):
-        self.actions_list = {"open_action": self.open_action, "read_csv": self.read_csv, "exit_app": self.exit_app, "about_dlg": self.about_dlg, "read_sql": self.read_sql}
+        self.actions_list = {"open_action": self.open_action, "read_csv": self.read_csv, "exit_app": self.exit_app,
+                             "about_dlg": self.about_dlg, "read_sql": self.read_sql}
         return self.actions_list

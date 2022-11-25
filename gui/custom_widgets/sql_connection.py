@@ -29,10 +29,9 @@ class SQLConnection(QDialog):
         buttons_layout.addWidget(self.ok_button)
         buttons_layout.addWidget(self.cancel_button)
 
-        dialog_layout.addWidget(self.combobox_db_connectors)
-        dialog_layout.addWidget(self.line_edit_server_url)
-        dialog_layout.addWidget(self.line_edit_db_name)
-        dialog_layout.addWidget(self.line_edit_table_name)
+        for widgets in [self.combobox_db_connectors, self.line_edit_server_url, self.line_edit_db_name,
+                        self.line_edit_table_name]:
+            dialog_layout.addWidget(widgets)
         dialog_layout.addLayout(buttons_layout)
 
         self.setLayout(dialog_layout)

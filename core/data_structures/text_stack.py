@@ -11,6 +11,9 @@ class TextStack:
         else:
             return None
 
+    def get_text(self):
+        return "\n".join(self.texts)
+
     def peek(self):
         if len(self.texts) > 0:
             return self.texts[len(self.texts) - 1]

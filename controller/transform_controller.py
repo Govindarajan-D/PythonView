@@ -48,6 +48,8 @@ class TransformController:
             self.dataframe_list.append(pandas_df)
             self.object.update_table()
 
+        self.object.central_widget.script_text.setText(pandas_df.gen_object.transform_code.get_text())
+
     @QtCore.Slot()
     def open_sql_connection(self):
         sql_connection = SQLConnection(self.object)
@@ -69,4 +71,3 @@ class TransformController:
                            'table_name': table_name}
         pandas_df = DataFrame(source_metadata, 'sql')
         self.dataframe_list.append(pandas_df)
-

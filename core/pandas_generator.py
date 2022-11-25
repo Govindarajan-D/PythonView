@@ -3,7 +3,7 @@ from collections import Counter
 
 
 class PandasGenerator:
-    """"
+    """
     PandasGenerator generates code to display in the steps screen. Each step in the UI
     is recorded.
     """
@@ -33,7 +33,7 @@ class PandasGenerator:
             current_df_name = self.final_dataframe_name
             self.step_df_names.add_step(current_df_name)
 
-        # If a operation is being performed more than once, append number to the end of the dataframe to keep it unique
+        # If an operation is being performed more than once, append number to the end of the dataframe to keep it unique
         step_df_name = operation_type
         if len(self.operations_list) > 0:
             if count_operations[operation_type] > 0:
