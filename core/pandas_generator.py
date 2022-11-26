@@ -47,10 +47,10 @@ class PandasGenerator:
             case "select_columns":
                 table_script = step_df_name + " = " + current_df_name + "[[" + operation_data['columns'] + "]]"
             case "read_csv":
-                table_script = step_df_name + " = " + "pd.read_csv(" + operation_data['file_path'] + ")"
+                table_script = step_df_name + " = " + "pd.read_csv('" + operation_data['file_path'] + "')"
             case "read_sql":
                 table_script = step_df_name + " = " + "pd.read_sql('SELECT * FROM " + operation_data['sql_table'] +\
-                               ", connection) "
+                               "', connection) "
 
         # Add the operations to the list to maintain the steps that had been done
         self.operations_list.append(operation_type)

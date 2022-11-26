@@ -20,8 +20,8 @@ class DataFrame:
             case 'csv':
                 file_path = source_metadata['csv_file_name']
                 self.pandas_df = pd.read_csv(file_path)
-                dataframe_name = ntpath.basename(file_path).replace(".", "_")
-                self.gen_object = PandasGenerator(dataframe_name)
+                self.dataframe_name = ntpath.basename(file_path).replace(".", "_")
+                self.gen_object = PandasGenerator(self.dataframe_name)
                 operation_data = {'file_path': file_path}
                 self.gen_object.generate_script("read_csv", operation_data)
             case 'sql':
@@ -33,7 +33,7 @@ class DataFrame:
                                                          + ';DATABASE=' + source_metadata['database']
                                                          + ';Trusted_Connection=yes')
                 self.pandas_df = pd.read_sql('SELECT * FROM ' + source_metadata['table_name'], connection_info)
-                dataframe_name = source_metadata['table_name']
-                self.gen_object = PandasGenerator(dataframe_name)
+                self.dataframe_name = source_metadata['table_name']
+                self.gen_object = PandasGenerator(self.dataframe_name)
                 operation_data = {'sql_table': source_metadata['table_name']}
                 self.gen_object.generate_script("read_sql", operation_data)

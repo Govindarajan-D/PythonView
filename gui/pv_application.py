@@ -27,7 +27,7 @@ class PyViewApplication(QMainWindow, GUISlots):
 
         # Get the actions specified in the GUI Actions and use them to populate the Menu and Tool Bar
         # Initialize the functions to build the UI ready for use
-        self.dataframe_list = []
+        self.dataframe_list = {}
         self.actions_obj = GUIActions(self).return_actions()
         self._initialize_menu_bar()
         self._initialize_toolbar()
@@ -68,7 +68,7 @@ class PyViewApplication(QMainWindow, GUISlots):
         self.log.info("Initialized Central Window")
 
     def update_table(self):
-        data = self.dataframe_list[0]
+        data = self.dataframe_list['Sales_csv']
         table_model = TableModel(data)
         self.central_widget.data_table.setModel(table_model)
 
