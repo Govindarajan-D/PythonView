@@ -29,9 +29,10 @@ class DataFrame:
                     case 'Microsoft SQL-Server':
                         # TODO: Change this to SQLAlchemy instead of pyodbc. Need to change this to ask username and
                         #  password
-                        connection_info = pyodbc.connect('DRIVER={SQL Server}; SERVER=' + source_metadata['server_url']
+                            connection_info = pyodbc.connect('DRIVER={SQL Server}; SERVER=' + source_metadata['server_url']
                                                          + ';DATABASE=' + source_metadata['database']
                                                          + ';Trusted_Connection=yes')
+
                 self.pandas_df = pd.read_sql('SELECT * FROM ' + source_metadata['table_name'], connection_info)
                 self.dataframe_name = source_metadata['table_name']
                 self.gen_object = PandasGenerator(self.dataframe_name)

@@ -1,9 +1,10 @@
 from PySide6 import QtCore
-from PySide6.QtCore import Signal, QObject
-from PySide6.QtWidgets import QFileDialog
+from PySide6.QtCore import Signal, QObject, QRunnable, QThreadPool
+from PySide6.QtWidgets import QFileDialog, QMessageBox
 from core import DataFrame
 from gui.custom_widgets.sql_connection import SQLConnection
 import os
+import logging
 
 
 class TransformController(QObject):
@@ -18,15 +19,19 @@ class TransformController(QObject):
         super().__init__()
         self.open_selected_file_name = None
         self.open_csv_file_name = None
+        self.thread_pool = QThreadPool()
+
         self.actions_obj = actions
         self.object = pyview_object
         self.dataframe_list = dataframe_list
+
+        self.log = logging.getLogger(__name__)
 
         # Signals are connected to the corresponding to their corresponding slots
         # (Views connected to Model/Core functions)
         self.actions_obj["read_csv"].triggered.connect(self.read_csv)
         self.actions_obj["open_action"].triggered.connect(self.open_file)
-        self.actions_obj["read_sql"].triggered.connect(self.open_sql_connection)
+        self.actions_obj["read_sql"].triggered.connect(self.open_sql_connection_widget)
         self.update_transform_text_signal.connect(self.update_transform_text)
 
     @QtCore.Slot()
@@ -53,16 +58,16 @@ class TransformController(QObject):
             self.dataframe_list[pandas_df.dataframe_name] = pandas_df
             self.object.update_table()
 
-            self.update_transform_text_signal.emit("read_csv")
+            self.update_transform_text_signal.emit(pandas_df.dataframe_name)
 
     @QtCore.Slot()
-    def open_sql_connection(self):
+    def open_sql_connection_widget(self):
         sql_connection = SQLConnection(self.object)
         sql_connection.show()
-        sql_connection.ok_button.clicked.connect(lambda: self.read_sql(sql_connection))
+        sql_connection.ok_button.clicked.connect(lambda: self.get_sql_details(sql_connection))
 
     @QtCore.Slot()
-    def read_sql(self, sql_conn_obj):
+    def get_sql_details(self, sql_conn_obj):
         # Closes the dialog box after input is done. Get the values entered in the fields
         # Pass the input to create Dataframe object and Pandas Generator object
         sql_conn_obj.close()
@@ -74,10 +79,33 @@ class TransformController(QObject):
         # Required information is passed as a dictionary for the functions to read them
         source_metadata = {'server_type': selected_sql_server, 'server_url': server_url, 'database': database_name,
                            'table_name': table_name}
-        pandas_df = DataFrame(source_metadata, 'sql')
-        self.dataframe_list[pandas_df.dataframe_name] = pandas_df
+        worker = RunThread(self.read_sql, source_metadata)
+        self.thread_pool.start(worker)
+
+    def read_sql(self, source_metadata):
+        try:
+            pandas_df = DataFrame(source_metadata, 'sql')
+            self.dataframe_list[pandas_df.dataframe_name] = pandas_df
+            self.update_transform_text_signal.emit(pandas_df.dataframe_name)
+        except:
+            error_dialog_sql = QMessageBox()
+            error_dialog_sql.setText("Invalid SQL connection information")
+            error_dialog_sql.exec()
 
     @QtCore.Slot()
-    def update_transform_text(self, called_from):
+    def update_transform_text(self, dataframe_name):
         self.object.central_widget.script_text.setText(
-            self.dataframe_list['Sales_csv'].gen_object.transform_code.get_text())
+            self.dataframe_list[dataframe_name].gen_object.transform_code.get_text())
+
+
+class RunThread(QRunnable):
+    def __init__(self, function, *args, **kwargs):
+        super().__init__()
+
+        self.function = function
+        self.args = args
+        self.kwargs = kwargs
+
+    @QtCore.Slot()
+    def run(self) -> None:
+        result = self.function(*self.args, **self.kwargs)
