@@ -27,7 +27,7 @@ class TransformController(QObject):
 
         self.log = logging.getLogger(__name__)
 
-        # Signals are connected to the corresponding to their corresponding slots
+        # Signals are connected to the  corresponding slots
         # (Views connected to Model/Core functions)
         self.actions_obj["read_csv"].triggered.connect(self.read_csv)
         self.actions_obj["open_action"].triggered.connect(self.open_file)
@@ -53,10 +53,12 @@ class TransformController(QObject):
         if self.open_csv_file_name is not None and self.open_csv_file_name:
             source_metadata = {'csv_file_name': self.open_csv_file_name}
             pandas_df = DataFrame(source_metadata, 'csv')
-            self.set_queries_controller(self.open_csv_file_name)
-            self.object.dock_left_pane.update()
+            self.set_queries_controller(pandas_df.dataframe_name)
+            self.object.dock_left_pane.list_queries.repaint()
             self.dataframe_list[pandas_df.dataframe_name] = pandas_df
             self.object.update_table()
+
+            self.log.info("File read from:" + self.open_csv_file_name)
 
             self.update_transform_text_signal.emit(pandas_df.dataframe_name)
 
@@ -79,17 +81,23 @@ class TransformController(QObject):
         # Required information is passed as a dictionary for the functions to read them
         source_metadata = {'server_type': selected_sql_server, 'server_url': server_url, 'database': database_name,
                            'table_name': table_name}
+
+        # Create thread pool and run in a separate thread to not affect GUI
         worker = RunThread(self.read_sql, source_metadata)
         self.thread_pool.start(worker)
 
     def read_sql(self, source_metadata):
         try:
             pandas_df = DataFrame(source_metadata, 'sql')
+            self.log.info("SQL Data Read from:" + source_metadata.table_name)
             self.dataframe_list[pandas_df.dataframe_name] = pandas_df
             self.update_transform_text_signal.emit(pandas_df.dataframe_name)
+
         except:
             error_dialog_sql = QMessageBox()
-            error_dialog_sql.setText("Invalid SQL connection information")
+            error_dialog_sql.setIcon(QMessageBox.Critical)
+            error_dialog_sql.setWindowTitle("SQL connection error")
+            error_dialog_sql.setText("Invalid SQL connection information provided")
             error_dialog_sql.exec()
 
     @QtCore.Slot()
