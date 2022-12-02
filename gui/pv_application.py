@@ -1,4 +1,3 @@
-
 from PySide6 import QtWidgets
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QMainWindow, QDockWidget
@@ -7,6 +6,7 @@ import sys
 import logging
 from gui.gui_functions.gui_slots import GUISlots
 from gui.custom_widgets.central_window_widget import CentralWindowWidget
+from gui.custom_widgets.tabbed_window import TabbedWindow
 from gui.navbars.transform_toolbar import TransformToolBar, TabbedToolbar
 from gui.navbars.transform_menubar import TransformMenuBar
 from gui.custom_widgets.sidebar_queries import SidebarQueries
@@ -57,13 +57,16 @@ class PyViewApplication(QMainWindow, GUISlots):
 
     def _initialize_window(self):
         # TODO: Connect the new dataframe init signal with the below slot to initialize queries list array
-        self.queries_list_model = QueriesList(["Test"])
-        self.dock_left_pane = SidebarQueries("Queries", self.queries_list_model)
-        self.dock_left_pane.setFeatures(QDockWidget.NoDockWidgetFeatures)
-        self.addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea, self.dock_left_pane)
+        # self.queries_list_model = QueriesList(["Test"])
+        # self.dock_left_pane = SidebarQueries("Queries", self.queries_list_model)
+        # self.dock_left_pane.setFeatures(QDockWidget.NoDockWidgetFeatures)
+        # self.addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea, self.dock_left_pane)
 
-        self.central_widget = CentralWindowWidget(parent=self)
-        self.setCentralWidget(self.central_widget)
+        # self.central_widget = CentralWindowWidget(parent=self)
+        # self.setCentralWidget(self.central_widget)
+
+        self.tab_window = TabbedWindow()
+        self.setCentralWidget(self.tab_window)
 
         self.log.info("Initialized Central Window")
 
