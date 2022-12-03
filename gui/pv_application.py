@@ -65,7 +65,7 @@ class PyViewApplication(QMainWindow, GUISlots):
         # self.central_widget = CentralWindowWidget(parent=self)
         # self.setCentralWidget(self.central_widget)
 
-        self.tab_window = TabbedWindow()
+        self.tab_window = TabbedWindow(self)
         self.setCentralWidget(self.tab_window)
 
         self.log.info("Initialized Central Window")

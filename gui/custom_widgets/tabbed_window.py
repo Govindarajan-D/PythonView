@@ -8,7 +8,7 @@ class TabbedWindow(QWidget):
     between different dataframes and see data.
     """
     def __init__(self, parent=None):
-        super().__init__()
+        super().__init__(parent)
         self.central = CentralWindowWidget(self)
         self.tabs = QTabWidget()
         self.tabs.addTab(self.central, "test_tab")

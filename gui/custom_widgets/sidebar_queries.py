@@ -1,11 +1,12 @@
-from PySide6.QtWidgets import QDockWidget, QListView
+from PySide6.QtWidgets import QWidget, QListView, QVBoxLayout
 
 
-class SidebarQueries(QDockWidget):
+class SidebarQueries(QWidget):
     def __init__(self, title, queries_list_model):
         super().__init__()
         self.setWindowTitle(title)
-        self.setFloating(False)
+        layout = QVBoxLayout()
         self.list_queries = QListView()
         self.list_queries.setModel(queries_list_model)
-        self.setWidget(self.list_queries)
+        layout.addWidget(self.list_queries)
+        self.setLayout(layout)
