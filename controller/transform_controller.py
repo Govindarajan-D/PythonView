@@ -52,15 +52,15 @@ class TransformController(QObject):
                                                                  'CSV file (*.csv)')
         if self.open_csv_file_name is not None and self.open_csv_file_name:
             source_metadata = {'csv_file_name': self.open_csv_file_name}
-            pandas_df = DataFrame(source_metadata, 'csv')
-            self.set_queries_controller(pandas_df.dataframe_name)
+            df = DataFrame(source_metadata, 'csv')
+            self.set_queries_controller(df.dataframe_name)
             self.object.dock_left_pane.list_queries.repaint()
-            self.dataframe_list[pandas_df.dataframe_name] = pandas_df
+            self.dataframe_list[df.dataframe_name] = df
             self.object.update_table()
 
             self.log.info("File read from:" + self.open_csv_file_name)
 
-            self.update_transform_text_signal.emit(pandas_df.dataframe_name)
+            self.update_transform_text_signal.emit(df.dataframe_name)
 
     @QtCore.Slot()
     def open_sql_connection_widget(self):
@@ -88,10 +88,10 @@ class TransformController(QObject):
 
     def read_sql(self, source_metadata):
         try:
-            pandas_df = DataFrame(source_metadata, 'sql')
+            df = DataFrame(source_metadata, 'sql')
             self.log.info("SQL Data Read from:" + source_metadata.table_name)
-            self.dataframe_list[pandas_df.dataframe_name] = pandas_df
-            self.update_transform_text_signal.emit(pandas_df.dataframe_name)
+            self.dataframe_list[df.dataframe_name] = df
+            self.update_transform_text_signal.emit(df.dataframe_name)
 
         except:
             error_dialog_sql = QMessageBox()

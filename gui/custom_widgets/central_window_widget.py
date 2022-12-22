@@ -13,12 +13,12 @@ class CentralWindowWidget(QWidget):
 
         layout_right_container = QVBoxLayout(self)
 
-       # self.script_text = QTextEdit(data, self)
+        self.script_text = QTextEdit(data, self)
         self.data_table = TableWidget()
         self.data_table.setGeometry(0, 0, 50, 15)
         self.data_table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
 
-        #layout_right_container.addWidget(self.script_text, 2)
+        layout_right_container.addWidget(self.script_text, 2)
         layout_right_container.addWidget(self.data_table, 98)
 
         # layout_main = QHBoxLayout(self)

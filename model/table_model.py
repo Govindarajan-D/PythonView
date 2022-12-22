@@ -4,7 +4,7 @@ from PySide6.QtCore import QAbstractTableModel, Qt
 class TableModel(QAbstractTableModel):
     def __init__(self, data):
         super(TableModel, self).__init__()
-        self._data = data.pandas_df
+        self._data = data.df
 
     def data(self, index, role):
         if role == Qt.DisplayRole:
